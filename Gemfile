@@ -1,64 +1,45 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7.1'
-gem 'rack'
-gem 'cancan'
+ruby '3.3.11'
 
-gem 'json'
+gem 'rails', '~> 7.1.0'
+gem 'puma', '~> 6.4'
+gem 'pg', '~> 1.5'
+gem 'sqlite3', '~> 1.4'
 
-gem 'inherited_resources'
+gem 'cancancan', '~> 3.5'
+gem 'inherited_resources', '~> 1.14'
 
-gem 'simple_admin', :git => 'git://github.com/jeffrafter/simple_admin.git'
-gem 'formtastic'
-gem 'jquery-rails'
-gem 'coffee-rails'
-gem 'sass-rails'
+gem 'kaminari', '~> 1.2'
+gem 'api-pagination', '~> 5.0'
+gem 'ransack', '~> 4.0'
 
-gem 'rails_12factor', group: :production
+gem 'bcrypt', '~> 3.1'
+gem 'devise', '~> 4.9'
 
-gem 'api-pagination'
+gem 'jbuilder', '~> 2.11'  # only if needed by Rails defaults; remove if no .jbuilder views
 
-gem 'ransack'
-gem 'kaminari'
+# Boot/runtime
+gem 'bootsnap', '~> 1.16', require: false
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-# To use ActiveModel has_secure_password
-gem 'bcrypt'
+group :development, :test do
+  gem 'byebug'
+  gem 'rspec-rails', '~> 6.1'
+  gem 'factory_bot_rails', '~> 6.4'
+  gem 'shoulda-matchers', '~> 6.0'
+  gem 'database_cleaner-active_record', '~> 2.1'
+  gem 'json_spec', '~> 1.1'
+  gem 'webmock', '~> 3.19'
+  gem 'timecop', '~> 0.9'
+end
 
-gem "devise"
-
-gem 'pg'
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'uglifier', '>= 1.0.3'
+group :development do
+  gem 'listen', '~> 3.8'
 end
 
 group :test do
-  gem 'sqlite3'
-  gem 'rspec-rails'
-  
-  gem 'awesome_print'
-  gem 'bullet'
-  gem 'byebug'
-  gem 'capybara'
-  gem 'capybara-webkit', '>= 1.2.0'
-  gem 'database_cleaner'
-  gem 'email_spec'
-  gem 'factory_girl_rails'
-  gem 'formulaic'
-  gem 'json-schema'
-  gem 'json_spec'
-  gem 'launchy'
-  gem 'shoulda-matchers', require: false
-  gem 'simplecov', require: false
-  gem 'timecop'
-  gem 'webmock'
+  gem 'capybara', '~> 3.39'
+  gem 'selenium-webdriver', '~> 4.16'
+  gem 'rails-controller-testing'
 end
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
- gem 'unicorn'
-
