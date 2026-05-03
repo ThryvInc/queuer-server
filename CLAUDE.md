@@ -33,13 +33,11 @@ projects → tasks
 sprint_projects → sprint_project_tasks   (also exposed at top level)
 ```
 
-`SimpleAdmin::Engine` is mounted at `/admin` for back-office access (separate auth flow via `ApplicationController#require_admin` HTTP basic).
+The SimpleAdmin admin UI (formerly mounted at `/admin`) was dropped during the Rails 7.1 upgrade; this is now a JSON API only.
 
 ### Authentication and authorization
 
-- Two distinct auth mechanisms — do not conflate them:
-  - **API**: token-based. `Api::V1::ApiController#current_user` looks up `User` by `api_key` from the `X-Qer-Authorization` header (or `_key` param / `api_key` cookie). CSRF is skipped for the API. Login via `POST /api/v1/session` returns the user including `api_key`.
-  - **Admin/web**: `has_secure_password` + session, used only by SimpleAdmin and `ApplicationController#require_admin`.
+- API auth is token-based: `Api::V1::ApiController#current_user` looks up `User` by `api_key` from the `X-Qer-Authorization` header (or `_key` param / `api_key` cookie). CSRF is skipped for the API. Login via `POST /api/v1/session` returns the user including `api_key`. (The legacy `has_secure_password` + session admin/web auth flow was removed with the SimpleAdmin UI.)
 - Authorization uses **CanCan** (`app/models/ability.rb`). Permissions are scoped by ownership chains (e.g. `DayTask` is allowed when `day.sprint.user_id == current_user.id`). Most controllers use `load_and_authorize_resource` (often `through: :current_user`).
 - `Api::V1::ApiController` defines `ApiKeyNotFound` / `ApiKeyInvalid` as `CanCan::AccessDenied` subclasses so missing/invalid keys produce 401s through the same rescue path.
 
