@@ -1,4 +1,4 @@
-class CreateSprintProjectTasks < ActiveRecord::Migration
+class CreateSprintProjectTasks < ActiveRecord::Migration[4.2]
   def change
     create_table :sprint_project_tasks do |t|
       t.integer :sprint_id

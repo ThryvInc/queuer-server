@@ -1,4 +1,4 @@
-class CreateDayTasks < ActiveRecord::Migration
+class CreateDayTasks < ActiveRecord::Migration[4.2]
   def change
     create_table :day_tasks do |t|
       t.integer :day_id
