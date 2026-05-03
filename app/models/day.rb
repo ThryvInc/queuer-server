@@ -2,6 +2,7 @@ class Day < ActiveRecord::Base
   belongs_to :sprint
   has_many :day_tasks, dependent: :destroy
   has_many :tasks, through: :day_tasks
+  validates :date, uniqueness: { scope: :sprint_id }
 
   def as_json(options={})
     included = options[:include] || {}

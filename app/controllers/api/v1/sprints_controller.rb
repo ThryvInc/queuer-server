@@ -4,7 +4,7 @@ class Api::V1::SprintsController < Api::V1::ApiController
   load_and_authorize_resource through: :current_user
 
   def index
-    sprints = paginate current_user.sprints.order(start_date: :desc), per_page: 8
+    sprints = paginate current_user.sprints.order(start_date: :desc)
 
     render json: sprints.as_json({ include: {} })
   end

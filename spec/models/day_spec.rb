@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Day' do
+  it { is_expected.to validate_uniqueness_of(:date).scoped_to(:sprint_id) }
 
   describe 'points' do
     it 'calculates points correctly' do
