@@ -4,15 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Stack
 
-- Rails 4.2 JSON API, Ruby 2.3.1 (`.ruby-version`).
+- Rails 7.1 JSON API, Ruby 3.3.11 (`.ruby-version`).
 - SQLite in development/test, Postgres in production (`config/database.yml`).
-- Originally an OpenShift Rails quickstart; the OpenShift-specific README content is no longer the primary purpose — this is now a JSON API for a sprint/task ("Queuer") application.
+- Puma is the app server in all environments (`Procfile`, `config/puma.rb`).
+- Deployed to Heroku (app name `queuer-production`).
+- This is a JSON API for a sprint/task ("Queuer") application. The repo originated from an OpenShift Rails quickstart, but all OpenShift-era artifacts have been removed.
 
 ## Common commands
 
 - Install: `bundle install`
-- DB setup: `bundle exec rake db:create db:migrate` (test DB auto-maintained via `ActiveRecord::Migration.maintain_test_schema!`).
-- Run server: `bundle exec rails s` (Unicorn is the configured app server in production).
+- DB setup: `bundle exec rails db:create db:migrate` (test DB auto-maintained via `ActiveRecord::Migration.maintain_test_schema!`).
+- Run server: `bundle exec rails s`
 - Console: `bundle exec rails c`
 - Run all specs: `bundle exec rspec`
 - Single spec file: `bundle exec rspec spec/requests/api/v1/sprints_spec.rb`
@@ -70,12 +72,10 @@ There is no AMS / Jbuilder. Each model overrides `as_json` to control include/ex
 
 ### Tests
 
-- RSpec with `factory_girl_rails`, `shoulda-matchers`, `database_cleaner` (transaction strategy by default, deletion for `js: true`), `bullet` for N+1 detection, and `json_spec` helpers.
+- RSpec with `factory_bot_rails`, `shoulda-matchers`, `database_cleaner` (transaction strategy by default, deletion for `js: true`), and `json_spec` helpers.
 - Most coverage is in `spec/requests/api/v1/*_spec.rb`. `spec/support/helpers/requests.rb` provides `authorization_headers(user)` — use it for authenticated API requests rather than setting headers manually.
 - `spec/support/helpers/requests.rb` references a `REDIS` constant in `activities`/`notifications` helpers, but no Redis is configured in the Gemfile — those helpers appear unused/dead.
 
 ## Gotchas
 
-- Ruby 2.3.1 and Rails 4.2 — many modern idioms (`before_action`, keyword args in controller tests, etc.) don't apply. The codebase still uses `before_filter`.
-- The repo contains a stray file literally named `{method:core.playback.pause,id:1,jsonrpc:2.0}` at the root and a `.DS_Store` — leave them alone unless explicitly asked to clean up.
 - `Api::V1::ApiController#load_index_from_nested_resource` is buggy as written (calls `res.send` on `nil`); don't use it as a reference.
