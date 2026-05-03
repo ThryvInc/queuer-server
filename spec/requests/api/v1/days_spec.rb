@@ -6,7 +6,7 @@ describe 'Day requests' do
       user = create :user
       sprint = create :sprint, user: user
 
-      post(api_v1_sprint_days_url(sprint), valid_day_params, authorization_headers(user))
+      post(api_v1_sprint_days_url(sprint), params: valid_day_params, headers: authorization_headers(user))
 
       expect(response).to have_http_status :created
     end
@@ -18,7 +18,7 @@ describe 'Day requests' do
       sprint = create :sprint, user: user
       create_list :day, 3, sprint: sprint
 
-      get(api_v1_sprint_days_url(sprint), {}, authorization_headers(user))
+      get(api_v1_sprint_days_url(sprint), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
     end
@@ -28,7 +28,7 @@ describe 'Day requests' do
       sprint = create :sprint, user: user
       other_user = create :user, username: 'other'
 
-      get(api_v1_sprint_days_url(sprint), {}, authorization_headers(other_user))
+      get(api_v1_sprint_days_url(sprint), params: {}, headers: authorization_headers(other_user))
 
       expect(response).to have_http_status :unauthorized
     end
@@ -40,7 +40,7 @@ describe 'Day requests' do
       sprint = create :sprint, user: user
       create_list :day, 3, sprint: sprint
 
-      get(api_v1_sprint_day_url(sprint, Day.last), {}, authorization_headers(user))
+      get(api_v1_sprint_day_url(sprint, Day.last), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
     end

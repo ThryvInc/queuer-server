@@ -18,4 +18,8 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner[:active_record].clean
   end
+
+  config.before(:each) do
+    FactoryBot.rewind_sequences
+  end
 end

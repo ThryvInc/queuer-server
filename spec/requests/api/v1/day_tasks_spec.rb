@@ -9,7 +9,7 @@ describe 'Day task requests' do
       sprint = create :sprint, user: user
       day = create :day, sprint: sprint
 
-      post(api_v1_sprint_day_day_tasks_url(sprint, day), valid_day_task_params(task), authorization_headers(user))
+      post(api_v1_sprint_day_day_tasks_url(sprint, day), params: valid_day_task_params(task), headers: authorization_headers(user))
 
       expect(response).to have_http_status :created
     end
@@ -24,7 +24,7 @@ describe 'Day task requests' do
       day = create :day, sprint: sprint
       create :day_task, day: day, task: task
 
-      get(api_v1_sprint_day_day_tasks_url(sprint, day), {}, authorization_headers(user))
+      get(api_v1_sprint_day_day_tasks_url(sprint, day), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
     end

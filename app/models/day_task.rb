@@ -1,8 +1,8 @@
 class DayTask < ActiveRecord::Base
   belongs_to :day
   belongs_to :task
-  belongs_to :next, class_name: 'DayTask'
-  belongs_to :previous, class_name: 'DayTask'
+  belongs_to :next, class_name: 'DayTask', optional: true
+  belongs_to :previous, class_name: 'DayTask', optional: true
 
   validates :task_id, uniqueness: { scope: :day_id }
 

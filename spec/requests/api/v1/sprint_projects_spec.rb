@@ -7,8 +7,8 @@ describe 'Sprint Project requests' do
       project = create :project, user: user
       sprint = create :sprint, user: user
 
-      post(api_v1_sprint_sprint_projects_url(sprint), valid_sprint_proj_params(project), 
-           authorization_headers(user))
+      post(api_v1_sprint_sprint_projects_url(sprint), params: valid_sprint_proj_params(project),
+           headers: authorization_headers(user))
 
       expect(response).to have_http_status :created
 
@@ -32,7 +32,7 @@ describe 'Sprint Project requests' do
       other_sprint = create :sprint, user: other_user
       create :sprint_project, sprint: other_sprint, project: other_project
 
-      get(api_v1_sprint_sprint_projects_url(sprint), {}, authorization_headers(user))
+      get(api_v1_sprint_sprint_projects_url(sprint), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
       expect(json.count).to eq 1
@@ -49,7 +49,7 @@ describe 'Sprint Project requests' do
       sprint = create :sprint, user: user
       sp = create :sprint_project, sprint: sprint, project: project
 
-      get(api_v1_sprint_project_url(sp), {}, authorization_headers(user))
+      get(api_v1_sprint_project_url(sp), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
     end

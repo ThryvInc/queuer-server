@@ -10,7 +10,7 @@ describe 'Sprint Project requests' do
       sp = create :sprint_project, sprint: sprint, project: project
       spt = create :sprint_project_task, sprint_project: sp, task: task
 
-      delete(api_v1_sprint_project_sprint_project_task_url(sp, spt), {}, authorization_headers(user))
+      delete(api_v1_sprint_project_sprint_project_task_url(sp, spt), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :no_content
     end

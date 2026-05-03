@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :day_task do
     task
     day

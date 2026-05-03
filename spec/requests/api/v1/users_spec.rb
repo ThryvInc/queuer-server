@@ -10,7 +10,7 @@ describe 'User requests' do
         }
       }.to_json
 
-      post(api_v1_users_url, new_user_attributes, accept_headers)
+      post(api_v1_users_url, params: new_user_attributes, headers: accept_headers)
 
       expect(response).to have_http_status :created
       expect(json['api_key']).not_to be_nil
@@ -26,7 +26,7 @@ describe 'User requests' do
         }
       }.to_json
 
-      post(api_v1_users_url, new_user_attributes, accept_headers)
+      post(api_v1_users_url, params: new_user_attributes, headers: accept_headers)
 
       expect(User.count).to eq 1
       expect(response).to have_http_status :unprocessable_entity

@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
 
-  belongs_to :project
+  belongs_to :project, optional: true
   has_many :day_tasks, dependent: :destroy
   has_many :sprint_project_tasks, dependent: :destroy
 

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-describe 'Day' do
+describe Day, type: :model do
+  subject { build(:day) }
   it { is_expected.to validate_uniqueness_of(:date).scoped_to(:sprint_id) }
 
   describe 'points' do

@@ -1,4 +1,6 @@
 class Sprint < ActiveRecord::Base
+  paginates_per 8
+
   belongs_to :user
   has_many :days
   has_many :sprint_projects

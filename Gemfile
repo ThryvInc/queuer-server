@@ -26,6 +26,12 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 6.1'
+  gem 'factory_bot_rails', '~> 6.4'
+  gem 'shoulda-matchers', '~> 6.0'
+  gem 'database_cleaner-active_record', '~> 2.1'
+  gem 'json_spec', '~> 1.1'
+  gem 'webmock', '~> 3.19'
+  gem 'timecop', '~> 0.9'
 end
 
 group :development do
@@ -33,12 +39,6 @@ group :development do
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 6.4'
-  gem 'shoulda-matchers', '~> 6.0'
-  gem 'database_cleaner-active_record', '~> 2.1'
-  gem 'json_spec', '~> 1.1'
-  gem 'webmock', '~> 3.19'
-  gem 'timecop', '~> 0.9'
   gem 'capybara', '~> 3.39'
   gem 'selenium-webdriver', '~> 4.16'
   gem 'rails-controller-testing', '~> 1.0'

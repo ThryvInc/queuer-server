@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sprint_project do
     project
     sprint

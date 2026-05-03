@@ -15,7 +15,7 @@ describe 'Task requests' do
         }
       }.to_json
 
-      post(api_v1_project_tasks_url(project), new_task_attributes, authorization_headers(user))
+      post(api_v1_project_tasks_url(project), params: new_task_attributes, headers: authorization_headers(user))
 
       project.reload
 
@@ -36,7 +36,7 @@ describe 'Task requests' do
       create :day_task, day: day, task: task
       create :sprint_project, sprint: sprint, project: project
 
-      get(api_v1_project_tasks_url(project), {}, authorization_headers(user))
+      get(api_v1_project_tasks_url(project), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
       expect(json.count).to eq 1
@@ -46,7 +46,7 @@ describe 'Task requests' do
       user = create :user
       project = create :project, user_id: user.id
 
-      get(api_v1_project_tasks_url(project), {}, accept_headers)
+      get(api_v1_project_tasks_url(project), params: {}, headers: accept_headers)
 
       expect(response).to have_http_status :unauthorized
     end
@@ -56,7 +56,7 @@ describe 'Task requests' do
       other_user = create :user, username: 'other'
       project = create :project, user_id: user.id
 
-      get(api_v1_project_tasks_url(project), {}, authorization_headers(other_user))
+      get(api_v1_project_tasks_url(project), params: {}, headers: authorization_headers(other_user))
 
       expect(response).to have_http_status :unauthorized
     end

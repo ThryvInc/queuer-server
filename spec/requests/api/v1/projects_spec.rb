@@ -12,7 +12,7 @@ describe 'Project requests' do
         }
       }.to_json
 
-      post(api_v1_projects_url, new_project_attributes, authorization_headers(user))
+      post(api_v1_projects_url, params: new_project_attributes, headers: authorization_headers(user))
 
       expect(response).to have_http_status :created
 
@@ -30,7 +30,7 @@ describe 'Project requests' do
       other_user = create :user, username: "other"
       other_project = create :project, user: other_user
 
-      get(api_v1_projects_url, {}, authorization_headers(user))
+      get(api_v1_projects_url, params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
       expect(json.count).to eq 2
@@ -41,7 +41,7 @@ describe 'Project requests' do
       user = create :user
       project = create :project, user: user
 
-      get(api_v1_projects_url, {}, accept_headers)
+      get(api_v1_projects_url, params: {}, headers: accept_headers)
 
       expect(response).to have_http_status :unauthorized
     end
@@ -53,7 +53,7 @@ describe 'Project requests' do
       project = create :project, user: user
       task = create :task, project: project
 
-      get(api_v1_project_url(project), {}, authorization_headers(user))
+      get(api_v1_project_url(project), params: {}, headers: authorization_headers(user))
 
       expect(response).to have_http_status :ok
       expect(json['tasks'].count).to eq 1
@@ -64,7 +64,7 @@ describe 'Project requests' do
       user = create :user
       project = create :project, user: user
 
-      get(api_v1_project_url(project), {}, accept_headers)
+      get(api_v1_project_url(project), params: {}, headers: accept_headers)
 
       expect(response).to have_http_status :unauthorized
     end
@@ -74,7 +74,7 @@ describe 'Project requests' do
       user = create :user
       project = create :project, user: user
 
-      get(api_v1_project_url(project), {}, authorization_headers(other_user))
+      get(api_v1_project_url(project), params: {}, headers: authorization_headers(other_user))
 
       expect(response).to have_http_status :unauthorized
     end

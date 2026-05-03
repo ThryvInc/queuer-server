@@ -1,12 +1,14 @@
 class Api::V1::ApiController < ApplicationController
+  include Rails::Pagination
+
   respond_to :json
 
-  before_filter :set_default_response_format
-  before_filter :set_default_response_headers
+  before_action :set_default_response_format
+  before_action :set_default_response_headers
 
   helper_method :current_user, :logged_in?
 
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   protected
 
@@ -38,6 +40,10 @@ class Api::V1::ApiController < ApplicationController
   end
 
   rescue_from CanCan::AccessDenied do |exception|
+    render json: { errors: exception.message }, status: :unauthorized
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
     render json: { errors: exception.message }, status: :unauthorized
   end
 

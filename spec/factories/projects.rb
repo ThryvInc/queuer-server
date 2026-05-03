@@ -1,6 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :project do
-    name "GDI"
-    color 1
+    name { "GDI" }
+    color { 1 }
+    user
   end
 end
